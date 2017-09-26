@@ -2,6 +2,10 @@ package edu.orangecoastcollege.cs273.ocmusicevents2;
 
 import android.content.Context;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -31,6 +35,36 @@ public class JSONLoader {
 
         //TODO: Now that the JSON string has been retrieved, parse it for each individual
         //TODO: MusicEvent object and add each object to the ArrayList (allEventsList)
+
+        try {
+            JSONObject rootObject = new JSONObject(json);
+            JSONArray allEventsArray = rootObject.getJSONArray("MusicEvents");
+            int length = allEventsArray.length();
+
+            // Loop through the array one by one, create a new MusicEvent object,
+            // add the object to an array list
+            for(int i = 0; i < length; ++i)
+            {
+                JSONObject event = allEventsArray.getJSONObject(i);
+                MusicEvent musicEvent = new MusicEvent();
+
+                musicEvent.setTitle(event.getString("Title"));
+                musicEvent.setDate(event.getString("Date"));
+                musicEvent.setDay(event.getString("Day"));
+                musicEvent.setTime(event.getString("Time"));
+                musicEvent.setLocation(event.getString("Location"));
+                musicEvent.setAddress1(event.getString("Address1"));
+                musicEvent.setAddress2(event.getString("Address2"));
+                musicEvent.setImageName(event.getString("ImageName"));
+
+                allEventsList.add(musicEvent);
+            }
+        }
+
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         return allEventsList;
     }
