@@ -19,6 +19,13 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
+ * This EventListAdapter creates a custom ListView that allows the user
+ * to see an image from the artist playing as well as the band's title
+ * and the date of the concert.
+ *
+ * @author Brian Wegener
+ * @version 1.0
+ *
  * Created on 9/26/2017.
  */
 
@@ -37,11 +44,17 @@ public class EventListAdapter extends ArrayAdapter<MusicEvent> {
         mResource = resource;
         mAllEventsList = allMusicEvents;
 
-
     }
 
-    // TODO: Override method called getView
-
+    /**
+     * This links the EventListAdapter with the view music_event_list_item so that
+     * we can show the user a custom view when they launch the app.
+     *
+     * @param position the position in the list of the item selected
+     * @param convertView converts the view so that the music_event_list_item works
+     * @param parent links it to its view group parent
+     * @return
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

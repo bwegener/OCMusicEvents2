@@ -13,6 +13,15 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * This is connected with the view that shows the users
+ * the details of the selected event
+ *
+ * @author Brian Wegener
+ * @version 1.0
+ *
+ * Created on 9/26/2017.
+ */
 public class EventDetailsActivity extends AppCompatActivity {
 
     @Override
@@ -23,12 +32,21 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String title = intent.getStringExtra("Title");
-        String details = intent.getStringExtra("Details");
+        String date = intent.getStringExtra("Date");
+        String day = intent.getStringExtra("Day");
+        String time = intent.getStringExtra("Time");
+        String location = intent.getStringExtra("Location");
+        String address1 = intent.getStringExtra("Address1");
+        String address2 = intent.getStringExtra("Address2");
         String imageFileName = title.replace(" ", "") + ".jpeg";
 
         ImageView eventImageView = (ImageView) findViewById(R.id.eventImageView);
         TextView eventTitleTextView = (TextView) findViewById(R.id.eventTitleTextView);
-        TextView eventDetailsTextView = (TextView) findViewById(R.id.eventDetailsTextView);
+        TextView eventDateDayTextView = (TextView) findViewById(R.id.eventDateDayTextView);
+        TextView eventTimeTextView = (TextView) findViewById(R.id.eventTimeTextView);
+        TextView eventLocationTextView = (TextView) findViewById(R.id.eventLocationTextView);
+        TextView eventAddress1TextView = (TextView) findViewById(R.id.eventAddress1TextView);
+        TextView eventAddress2TextView = (TextView) findViewById(R.id.eventAddress2TextView);
 
         AssetManager am = this.getAssets();
         try {
@@ -41,11 +59,19 @@ public class EventDetailsActivity extends AppCompatActivity {
             Log.e("OC Music Events", "Error loading image: " + imageFileName, e);
         }
         eventTitleTextView.setText(title);
-        eventDetailsTextView.setText(details);
-
+        eventDateDayTextView.setText(date + " - " + day);
+        eventTimeTextView.setText(time);
+        eventLocationTextView.setText(location);
+        eventAddress1TextView.setText(address1);
+        eventAddress2TextView.setText(address2);
 
     }
 
+    /**
+     * This sends the user back to the activity event list
+     *
+     * @param v sends the user to the other view.
+     */
     protected void goBackToList(View v)
     {
         finish();

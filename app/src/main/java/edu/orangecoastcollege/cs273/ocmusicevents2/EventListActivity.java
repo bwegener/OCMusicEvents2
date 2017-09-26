@@ -10,6 +10,16 @@ import android.widget.ListView;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This creates the event list activity so that the list
+ * which is displayed to users upon launching the app
+ * shows the bands in a list as well as the date of the event.
+ *
+ * @author Brian Wegener
+ * @version 1.0
+ *
+ * Created on 9/26/2017.
+ */
 public class EventListActivity extends ListActivity {
 
     private List<MusicEvent> mAllEventsList;
@@ -20,17 +30,23 @@ public class EventListActivity extends ListActivity {
 
         try {
             mAllEventsList = JSONLoader.loadJSONFromAsset(this);
-
-
         }
 
         catch (IOException e) {
             Log.e("OC Music Events", "Error loading from JSON", e);
         }
-        // setListAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, MusicEvent.titles));
 
+        setListAdapter(new EventListAdapter(this, R.layout.music_event_list_item, mAllEventsList));
     }
 
+    /**
+     * This dictates what happens when one of the items in teh list is clicked.
+     *
+     * @param l the listView
+     * @param v the specific view
+     * @param position the position on the list
+     * @param id the id of what is clicked
+     */
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
